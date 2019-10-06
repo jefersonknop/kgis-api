@@ -17,25 +17,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.knopsistemas.entities.ResponseModel;
-import br.com.knopsistemas.entities.Tipo_Equipamento;
-import br.com.knopsistemas.repository.Tipo_EquipamentoRepository;
+import br.com.knopsistemas.entities.Equipamento;
+import br.com.knopsistemas.repository.EquipamentoRepository;
 
 @RestController
-@RequestMapping("/tipo_equipamentos")
+@RequestMapping("/equipamentos")
 @CrossOrigin(origins = "*")
 
-public class Tipo_EquipamentoService {
+public class EquipamentoService {
 	
 	@Autowired
-	private Tipo_EquipamentoRepository tipo_equipamentoRepository;
+	private EquipamentoRepository equipamentoRepository;
 	
 
 
 	@PostMapping
-	public @ResponseBody ResponseModel save(@RequestBody Tipo_Equipamento tipo_equipamento){ 
+	public @ResponseBody ResponseModel save(@RequestBody Equipamento equipamento){ 
  
 		try { 
-			this.tipo_equipamentoRepository.save(tipo_equipamento); 
+			this.equipamentoRepository.save(equipamento); 
 			return new ResponseModel(1,"Registro salvo com sucesso!");
  
 		}catch(Exception e) { 
@@ -45,11 +45,11 @@ public class Tipo_EquipamentoService {
 	
 
 	@PutMapping
-	public @ResponseBody ResponseModel update(@RequestBody Tipo_Equipamento tipo_equipamento){
+	public @ResponseBody ResponseModel update(@RequestBody Equipamento equipamento){
  
 		try {
  
-			this.tipo_equipamentoRepository.save(tipo_equipamento);		
+			this.equipamentoRepository.save(equipamento);		
  
 			return new ResponseModel(1,"Registro atualizado com sucesso!");
  
@@ -62,14 +62,14 @@ public class Tipo_EquipamentoService {
 	
 	@DeleteMapping("/{id}")	
 	public @ResponseBody ResponseModel delete(@PathVariable("id") Long id){ 
-		Optional <Tipo_Equipamento> tipo_equipamento = tipo_equipamentoRepository.findById(id);
-		if (!tipo_equipamento.isPresent()) {				
+		Optional <Equipamento> equipamento = equipamentoRepository.findById(id);
+		if (!equipamento.isPresent()) {				
 			return new ResponseModel(0, "Registro inexistente!");						
 		
 		}
 		else { 		
 			try {	 
-				tipo_equipamentoRepository.delete(tipo_equipamento.get());	 
+				equipamentoRepository.delete(equipamento.get());	 
 				return new ResponseModel(1, "Registro excluido com sucesso!");
 	 
 			}catch(Exception e) {
@@ -82,21 +82,30 @@ public class Tipo_EquipamentoService {
 
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Tipo_Equipamento> findById (@PathVariable Long id){
-		Optional<Tipo_Equipamento> tipo_equipamento = tipo_equipamentoRepository.findById(id);
+	public ResponseEntity<Equipamento> findById (@PathVariable Long id){
+		Optional<Equipamento> equipamento = equipamentoRepository.findById(id);
 		
-		if (tipo_equipamento == null) 
+		if (equipamento == null) 
 			return ResponseEntity.notFound().build();	 
 		else
-			return ResponseEntity.ok(tipo_equipamento.get());
+			return ResponseEntity.ok(equipamento.get());
 					
 	}
 	
 
-	@GetMapping
-	public @ResponseBody List<Tipo_Equipamento> findAll(){ 
-		return this.tipo_equipamentoRepository.findAll();
+	@GetMapping("/inquilino/{inquilino}")
+	public @ResponseBody List<Equipamento> findAll(@PathVariable Long inquilino){
+		return this.equipamentoRepository.findByInquilino(inquilino);
+		//return this.linhaRepository.findAll();
 	}
+	
+	/*@GetMapping
+	public @ResponseBody List<Equipamento> findAll(){ 
+		return this.equipamentoRepository.findAll();
+	}
+
+*/
+	
 	
 	
 

@@ -21,7 +21,7 @@ import br.com.knopsistemas.entities.Veiculo;
 import br.com.knopsistemas.repository.VeiculoRepository;
 
 @RestController
-@RequestMapping("/veiculo")
+@RequestMapping("/veiculos")
 @CrossOrigin(origins = "*")
 
 public class VeiculoService {
