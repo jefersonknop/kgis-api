@@ -151,6 +151,10 @@ public class Registro {
 	public void setLocalizacao(Point localizacao) {
 		this.localizacao = localizacao;
 	}
+	
+	public void setLocalizacao(Double longitude, Double latidude) {
+		this.localizacao = new Point(longitude, latidude);
+	}
 
 	@Override
 	public int hashCode() {

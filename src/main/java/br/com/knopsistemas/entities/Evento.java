@@ -36,9 +36,9 @@ public class Evento {
 	private String descricao;
 	
 	
-	private Timestamp datahora_inicio;
+	private Timestamp data_inicio;
 	
-	private Timestamp  datahora_fim;
+	private Timestamp  data_fim;
 	
 	@Size (max = 100)
     private String situacao;
@@ -91,20 +91,20 @@ public class Evento {
 		this.descricao = descricao;
 	}
 
-	public Timestamp getDatahora_inicio() {
-		return datahora_inicio;
+	public Timestamp getData_inicio() {
+		return data_inicio;
 	}
 
-	public void setDatahora_inicio(Timestamp datahora_inicio) {
-		this.datahora_inicio = datahora_inicio;
+	public void setData_inicio(Timestamp data_inicio) {
+		this.data_inicio = data_inicio;
 	}
 
-	public Timestamp getDatahora_fim() {
-		return datahora_fim;
+	public Timestamp getData_fim() {
+		return data_fim;
 	}
 
-	public void setDatahora_fim(Timestamp datahora_fim) {
-		this.datahora_fim = datahora_fim;
+	public void setData_fim(Timestamp data_fim) {
+		this.data_fim = data_fim;
 	}
 
 	public String getSituacao() {
