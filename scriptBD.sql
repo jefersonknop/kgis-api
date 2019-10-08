@@ -34,8 +34,45 @@ DESCRICAO VARCHAR(255),
 DATA_INICIO timestamptz,
 DATA_FIM timestamptz,
 SITUACAO VARCHAR(100),
-INFORMACOES VARCHAR(500));					
+INFORMACOES VARCHAR(500));			
 					
 					
+CREATE EXTENSION postgis;	
 					
+					
+		
 
+					
+					
+	
+					
+CREATE TABLE registro (
+id SERIAL PRIMARY KEY,
+INQUILINO_ID INTEGER,
+EVENTO_ID INTEGER REFERENCES EVENTO,
+TIPO VARCHAR(100),
+DESCRICAO VARCHAR(255),
+DATAHORA timestamptz,
+LATITUDE VARCHAR(50),
+LONGITUDE VARCHAR(50),
+SITUACAO VARCHAR(100),
+INFORMACOES VARCHAR(500),	
+location GEOGRAPHY(POINT,4326)
+);
+	
+	
+	
+CREATE TABLE global_points (
+id SERIAL PRIMARY KEY,
+name VARCHAR(64),
+location GEOGRAPHY(POINT,4326)
+);
+					
+INSERT INTO global_points (name, location) VALUES ('Town', ST_GeographyFromText('SRID=4326;POINT(-110 30)') );
+INSERT INTO global_points (name, location) VALUES ('Forest', ST_GeographyFromText('SRID=4326;POINT(-109 29)') );
+INSERT INTO global_points (name, location) VALUES ('London', ST_GeographyFromText('SRID=4326;POINT(0 49)') );
+
+					
+SELECT * FROM global_points
+					
+drop TABLE global_points;
