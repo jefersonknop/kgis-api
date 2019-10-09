@@ -1,5 +1,6 @@
 package br.com.knopsistemas.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +10,15 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Point;
+
+
+
 
 
 
@@ -27,13 +36,14 @@ public class Global_points {
     private String name;
 	
 	
-	 @NotNull
-	 @Type(type = "org.hibernate.spatial.GeometryType")
-	 private Point location;
 
+	//@Column(columnDefinition="Geometry")
+  //  @Type(type="org.hibernate.spatial.GeometryType")    //"org.hibernatespatial.GeometryUserType" seems to be for older versions of Hibernate Spatial
+   // public Point location;
+	 
 	
-	
-	
+	 private Geometry location;
+
 	
 
 
@@ -54,11 +64,19 @@ public class Global_points {
 		this.name = name;
 	}
 
-	public Point getLocation() {
+
+	
+
+
+    
+    @JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(using = GeometryDeserializer.class)
+    @Column(name = "location", columnDefinition = "Geometry")
+	public Geometry getLocation() {
 		return location;
 	}
 
-	public void setLocation(Point location) {
+	public void setLocation(Geometry location) {
 		this.location = location;
 	}
 
