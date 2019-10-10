@@ -35,7 +35,7 @@ public class Global_pointsService {
 	public @ResponseBody ResponseModel save(@RequestBody Global_points global_points){ 
  
 		try { 
-			this.global_pointsRepository.save(global_points); 
+			//this.global_pointsRepository.save(global_points); 
 			return new ResponseModel(1,"Registro salvo com sucesso!");
  
 		}catch(Exception e) { 

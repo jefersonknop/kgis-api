@@ -1,5 +1,7 @@
 package br.com.knopsistemas.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +25,7 @@ import com.vividsolutions.jts.geom.Point;
 
 
 @Entity
-public class Global_points {
+public class Global_points implements Serializable{
 
 	@Id
 	@GeneratedValue(generator = "increment")
@@ -35,12 +37,6 @@ public class Global_points {
 	@Size (max = 64)
     private String name;
 	
-	
-
-	//@Column(columnDefinition="Geometry")
-  //  @Type(type="org.hibernate.spatial.GeometryType")    //"org.hibernatespatial.GeometryUserType" seems to be for older versions of Hibernate Spatial
-   // public Point location;
-	 
 	
 	 private Geometry location;
 
