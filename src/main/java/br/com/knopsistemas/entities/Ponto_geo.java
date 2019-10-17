@@ -1,69 +1,70 @@
 package br.com.knopsistemas.entities;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import org.springframework.data.geo.Point;
+
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometryDeserializer;
+import com.bedatadriven.jackson.datatype.jts.serialization.GeometrySerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
+
+
+
+
 
 
 @Entity
-public class Registro {
+public class Ponto_geo implements Serializable{
 
 	@Id
 	@GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
 	private Long id;
 	
-	
 	private Long inquilino_id;
 	
-	
-	@JoinColumn(name = "evento_id", referencedColumnName = "id")
+	@JoinColumn(name = "registro_id", referencedColumnName = "id")
     @ManyToOne
-	private Evento evento_id;
+	private Registro registro_id;
 	
-	@Size (max = 100)
-    private String tipo;
-	
-	//@NotEmpty
 	@Size (max = 255)
-	private String descricao;
+    private String descricao;
 	
 	private Timestamp  datahora;
 	
+    private Geometry localizacao;
+
 	
 
-    private Double longitude;
-    private Double latitude;
+
+	
+
+
     
-
-	
-	
-	
-	@Size (max = 100)
-    private String situacao;
-	
-	@Size (max = 500)
-    private String informacoes;
-	
-	
-	
-
-	
-	public Long getId() {
+    public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	
+	
 
 	public Long getInquilino_id() {
 		return inquilino_id;
@@ -73,20 +74,12 @@ public class Registro {
 		this.inquilino_id = inquilino_id;
 	}
 
-	public Evento getEvento_id() {
-		return evento_id;
+	public Registro getRegistro_id() {
+		return registro_id;
 	}
 
-	public void setEvento_id(Evento evento_id) {
-		this.evento_id = evento_id;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setRegistro_id(Registro registro_id) {
+		this.registro_id = registro_id;
 	}
 
 	public String getDescricao() {
@@ -105,38 +98,20 @@ public class Registro {
 		this.datahora = datahora;
 	}
 
-	public Double getLongitude() {
-		return longitude;
+	
+	@JsonSerialize(using = GeometrySerializer.class)
+    @JsonDeserialize(using = GeometryDeserializer.class)
+    @Column(name = "localizacao", columnDefinition = "Geometry")
+	public Geometry getLocalizacao() {
+		return localizacao;
 	}
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
+	public void setLocalizacao(Geometry localizacao) {
+		this.localizacao = localizacao;
 	}
 
-	public Double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-
-	public String getSituacao() {
-		return situacao;
-	}
-
-	public void setSituacao(String situacao) {
-		this.situacao = situacao;
-	}
-
-	public String getInformacoes() {
-		return informacoes;
-	}
-
-	public void setInformacoes(String informacoes) {
-		this.informacoes = informacoes;
-	}
-
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -153,7 +128,7 @@ public class Registro {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Registro other = (Registro) obj;
+		Ponto_geo other = (Ponto_geo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
