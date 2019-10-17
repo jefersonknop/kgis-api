@@ -51,9 +51,6 @@ public class Ponto_geo implements Serializable{
 	
 
 
-	
-
-
     
     public Long getId() {
 		return id;
