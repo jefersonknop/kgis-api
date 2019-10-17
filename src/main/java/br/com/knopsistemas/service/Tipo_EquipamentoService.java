@@ -30,6 +30,7 @@ public class Tipo_EquipamentoService {
 	private Tipo_EquipamentoRepository tipo_equipamentoRepository;
 	
 
+	
 
 	@PostMapping
 	public @ResponseBody ResponseModel save(@RequestBody Tipo_Equipamento tipo_equipamento){ 
@@ -42,6 +43,9 @@ public class Tipo_EquipamentoService {
 			return new ResponseModel(0,e.getMessage());			
 		}
 	}
+	
+	
+	
 	
 
 	@PutMapping

@@ -1,5 +1,6 @@
 package br.com.knopsistemas.service;
 
+import java.awt.geom.Point2D.Float;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.PrecisionModel;
+
 import br.com.knopsistemas.entities.ResponseModel;
+import br.com.knopsistemas.entities.Ponto_geo;
 import br.com.knopsistemas.entities.Registro;
+import br.com.knopsistemas.repository.Ponto_geoRepository;
 import br.com.knopsistemas.repository.RegistroRepository;
 
 @RestController
@@ -29,6 +37,9 @@ public class RegistroService {
 	@Autowired
 	private RegistroRepository registroRepository;
 	
+	@Autowired
+	private Ponto_geoRepository ponto_geoRepository;
+	
 
 
 	@PostMapping
@@ -36,10 +47,42 @@ public class RegistroService {
  
 		try { 
 			this.registroRepository.save(registro); 
+			
+			
+			
+			
+			Ponto_geo ponto = new Ponto_geo();
+			ponto.setInquilino_id(registro.getInquilino_id());
+			ponto.setRegistro_id(registro);
+			ponto.setDescricao(registro.getDescricao());
+			ponto.setDatahora(registro.getDatahora());
+			
+			
+			int numDecPlaces = 7;
+			double scale = Math.pow(10, numDecPlaces);
+			double x= registro.getLatitude();
+			double y = registro.getLongitude();			
+			PrecisionModel pm = new PrecisionModel(scale);
+			GeometryFactory gf = new GeometryFactory(pm);
+		   Geometry point = gf.createPoint(new Coordinate(x, y));
+			
+			  
+			  
+			ponto.setLocalizacao(point);
+			
+			
+			
+			
+			this.ponto_geoRepository.save(ponto);
+			
+			
+			
+			
+			
 			return new ResponseModel(1,"Registro salvo com sucesso!");
  
 		}catch(Exception e) { 
-			return new ResponseModel(0,e.getMessage());			
+			return new ResponseModel(0,e.getMessage() + " - "+ e);			
 		}
 	}
 	
@@ -49,7 +92,9 @@ public class RegistroService {
  
 		try {
  
-			this.registroRepository.save(registro);		
+			this.registroRepository.save(registro);	
+			
+			
  
 			return new ResponseModel(1,"Registro atualizado com sucesso!");
  

@@ -71,6 +71,11 @@ datahora timestamptz,
 localizacao GEOGRAPHY(POINT,4326)
 );
 	
+INSERT INTO ponto_geo (inquilino_id, descricao, localizacao) VALUES (1, 'Town', ST_GeographyFromText('SRID=4326;POINT(-110 30)') );
+INSERT INTO ponto_geo (inquilino_id, descricao,localizacao) VALUES (1, 'Forest', ST_GeographyFromText('SRID=4326;POINT(-109 29)') );
+INSERT INTO ponto_geo (inquilino_id, descricao, localizacao) VALUES (1, 'London', ST_GeographyFromText('SRID=4326;POINT(0 49)') );
+					
+					
 	
 					
 					
