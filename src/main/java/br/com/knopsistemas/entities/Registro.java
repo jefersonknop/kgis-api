@@ -38,9 +38,16 @@ public class Registro {
 	
 	private Timestamp  datahora;
 	
+	private Double velocidade;
 	
+	private Double altitude;
+	
+	private Double temperatura;
+	
+	private Double umidade;
 
     private Double longitude;
+    
     private Double latitude;
     
 
@@ -135,6 +142,40 @@ public class Registro {
 
 	public void setInformacoes(String informacoes) {
 		this.informacoes = informacoes;
+	}
+	
+	
+
+	public Double getVelocidade() {
+		return velocidade;
+	}
+
+	public void setVelocidade(Double velocidade) {
+		this.velocidade = velocidade;
+	}
+
+	public Double getAltitude() {
+		return altitude;
+	}
+
+	public void setAltitude(Double altitude) {
+		this.altitude = altitude;
+	}
+
+	public Double getTemperatura() {
+		return temperatura;
+	}
+
+	public void setTemperatura(Double temperatura) {
+		this.temperatura = temperatura;
+	}
+
+	public Double getUmidade() {
+		return umidade;
+	}
+
+	public void setUmidade(Double umidade) {
+		this.umidade = umidade;
 	}
 
 	@Override

@@ -46,6 +46,18 @@ public class Ponto_geo implements Serializable{
 	
 	private Timestamp  datahora;
 	
+    private Double velocidade;
+	
+	private Double altitude;
+	
+	private Double temperatura;
+	
+	private Double umidade;
+
+    private Double longitude;
+    
+    private Double latitude;
+	
     private Geometry localizacao;
 
 	
@@ -94,8 +106,58 @@ public class Ponto_geo implements Serializable{
 	public void setDatahora(Timestamp datahora) {
 		this.datahora = datahora;
 	}
+	
+	
 
 	
+	public Double getVelocidade() {
+		return velocidade;
+	}
+
+	public void setVelocidade(Double velocidade) {
+		this.velocidade = velocidade;
+	}
+
+	public Double getAltitude() {
+		return altitude;
+	}
+
+	public void setAltitude(Double altitude) {
+		this.altitude = altitude;
+	}
+
+	public Double getTemperatura() {
+		return temperatura;
+	}
+
+	public void setTemperatura(Double temperatura) {
+		this.temperatura = temperatura;
+	}
+
+	public Double getUmidade() {
+		return umidade;
+	}
+
+	public void setUmidade(Double umidade) {
+		this.umidade = umidade;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
 	@JsonSerialize(using = GeometrySerializer.class)
     @JsonDeserialize(using = GeometryDeserializer.class)
     @Column(name = "localizacao", columnDefinition = "Geometry")

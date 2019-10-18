@@ -23,6 +23,7 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.PrecisionModel;
 
 import br.com.knopsistemas.entities.ResponseModel;
+import br.com.knopsistemas.entities.Tipo_Equipamento;
 import br.com.knopsistemas.entities.Ponto_geo;
 import br.com.knopsistemas.entities.Registro;
 import br.com.knopsistemas.repository.Ponto_geoRepository;
@@ -56,26 +57,25 @@ public class RegistroService {
 			ponto.setRegistro_id(registro);
 			ponto.setDescricao(registro.getDescricao());
 			ponto.setDatahora(registro.getDatahora());
+			ponto.setVelocidade(registro.getVelocidade());
+			ponto.setAltitude(registro.getAltitude());			
+			ponto.setTemperatura(registro.getTemperatura());
+			ponto.setUmidade(registro.getUmidade());
 			
-			
+							
 			int numDecPlaces = 7;
 			double scale = Math.pow(10, numDecPlaces);
 			double x= registro.getLatitude();
 			double y = registro.getLongitude();			
 			PrecisionModel pm = new PrecisionModel(scale);
-			GeometryFactory gf = new GeometryFactory(pm);
-		   Geometry point = gf.createPoint(new Coordinate(x, y));
-			
-			  
+	     	GeometryFactory gf = new GeometryFactory(pm);
+		    Geometry point = gf.createPoint(new Coordinate(x, y));					  
 			  
 			ponto.setLocalizacao(point);
-			
-			
+					
 			
 			
 			this.ponto_geoRepository.save(ponto);
-			
-			
 			
 			
 			
@@ -85,6 +85,51 @@ public class RegistroService {
 			return new ResponseModel(0,e.getMessage() + " - "+ e);			
 		}
 	}
+	
+	
+	
+	@PostMapping(path = "/embarcados", consumes = "application/x-www-form-urlencoded")
+	public @ResponseBody ResponseModel saveEmbarcado(Registro registro) {
+		try { 
+			this.registroRepository.save(registro); 
+			
+			Ponto_geo ponto = new Ponto_geo();
+			ponto.setInquilino_id(registro.getInquilino_id());
+			ponto.setRegistro_id(registro);
+			ponto.setDescricao(registro.getDescricao());
+			ponto.setDatahora(registro.getDatahora());
+			ponto.setVelocidade(registro.getVelocidade());
+			ponto.setAltitude(registro.getAltitude());			
+			ponto.setTemperatura(registro.getTemperatura());
+			ponto.setUmidade(registro.getUmidade());
+			
+							
+			int numDecPlaces = 7;
+			double scale = Math.pow(10, numDecPlaces);
+			double x= registro.getLatitude();
+			double y = registro.getLongitude();			
+			PrecisionModel pm = new PrecisionModel(scale);
+	     	GeometryFactory gf = new GeometryFactory(pm);
+		    Geometry point = gf.createPoint(new Coordinate(x, y));					  
+			  
+			ponto.setLocalizacao(point);
+					
+			
+			
+			this.ponto_geoRepository.save(ponto);
+			
+			
+			
+			return new ResponseModel(1,"Registro salvo com sucesso!");
+ 
+		}catch(Exception e) { 
+			return new ResponseModel(0,e.getMessage() + " - "+ e);			
+		}
+	}
+	
+
+	
+	
 	
 
 	@PutMapping

@@ -55,19 +55,27 @@ EVENTO_ID INTEGER REFERENCES EVENTO,
 TIPO VARCHAR(100),
 DESCRICAO VARCHAR(255),
 DATAHORA timestamptz,
+velocidade float,
+altitude float,
+temperatura float,
+umidade float,
 LONGITUDE FLOAT,
 LATITUDE FLOAT,
 SITUACAO VARCHAR(100),
 INFORMACOES VARCHAR(500)
 );
 			
-					
+			
 CREATE TABLE ponto_geo (
 id SERIAL PRIMARY KEY,
 INQUILINO_ID INTEGER,
 registro_id integer references registro,
 DESCRICAO VARCHAR(255),
 datahora timestamptz,
+velocidade float,
+altitude float,
+temperatura float,
+umidade float,
 localizacao GEOGRAPHY(POINT,4326)
 );
 	
