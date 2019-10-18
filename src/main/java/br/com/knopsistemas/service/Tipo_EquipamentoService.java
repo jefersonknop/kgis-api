@@ -30,6 +30,18 @@ public class Tipo_EquipamentoService {
 	private Tipo_EquipamentoRepository tipo_equipamentoRepository;
 	
 
+	@PostMapping(path = "/especial", consumes = "application/x-www-form-urlencoded")
+	public @ResponseBody ResponseModel saveEspecial(Tipo_Equipamento tipo_equipamento) {
+		try { 
+			this.tipo_equipamentoRepository.save(tipo_equipamento); 
+			return new ResponseModel(1,"Registro salvo com sucesso!");
+ 
+		}catch(Exception e) { 
+			return new ResponseModel(0,e.getMessage());			
+		}
+	}
+	
+
 	
 
 	@PostMapping
