@@ -91,6 +91,11 @@ public class RegistroService {
 	@PostMapping(path = "/embarcados", consumes = "application/x-www-form-urlencoded")
 	public @ResponseBody ResponseModel saveEmbarcado(Registro registro) {
 		try { 
+	
+			//registro.setEvento_id(null);	
+			registro.setInquilino_id(new Long(1));	
+			
+			
 			this.registroRepository.save(registro); 
 			
 			Ponto_geo ponto = new Ponto_geo();
